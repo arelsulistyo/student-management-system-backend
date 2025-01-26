@@ -55,6 +55,12 @@ public class StudentService {
             .collect(Collectors.toList());
     }
 
+    public void deleteStudent(Long studentId) {
+        Student student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found"));
+        studentRepository.delete(student);
+    }
+
     private String combineNames(String firstName, String lastName) {
         if (lastName == null || lastName.trim().isEmpty()) {
             return firstName;

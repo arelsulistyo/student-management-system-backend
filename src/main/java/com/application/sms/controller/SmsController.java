@@ -50,4 +50,14 @@ public class SmsController {
             updatedStudent
         );
     }
+
+    @DeleteMapping("/{studentId}")
+    public ApiResponse<Void> deleteStudent(@PathVariable Long studentId) {
+        studentService.deleteStudent(studentId);
+        return new ApiResponse<>(
+            HttpStatus.OK.value(),
+            "Student deleted successfully",
+            null
+        );
+    }
 }
