@@ -3,6 +3,7 @@ package com.application.sms.service;
 import com.application.sms.model.Student;
 import com.application.sms.dto.StudentListResponse;
 import com.application.sms.dto.StudentCreateRequest;
+import com.application.sms.dto.StudentUpdateRequest;
 import com.application.sms.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,23 @@ public class StudentService {
         student.setFirstName(request.getFirstName());
         student.setLastName(request.getLastName());
         student.setBirthDate(request.getBirthDate());
+        return studentRepository.save(student);
+    }
+
+    public Student updateStudent(Long studentId, StudentUpdateRequest request) {
+        Student student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        if (request.getFirstName() != null) {
+            student.setFirstName(request.getFirstName());
+        }
+        if (request.getLastName() != null) {
+            student.setLastName(request.getLastName());
+        }
+        if (request.getBirthDate() != null) {
+            student.setBirthDate(request.getBirthDate());
+        }
+
         return studentRepository.save(student);
     }
 

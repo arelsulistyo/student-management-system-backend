@@ -3,6 +3,7 @@ package com.application.sms.controller;
 import com.application.sms.dto.ApiResponse;
 import com.application.sms.dto.StudentCreateRequest;
 import com.application.sms.dto.StudentListResponse;
+import com.application.sms.dto.StudentUpdateRequest;
 import com.application.sms.model.Student;
 import com.application.sms.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,19 @@ public class SmsController {
             HttpStatus.OK.value(),
             "Students retrieved successfully",
             students
+        );
+    }
+
+    @PutMapping("/{studentId}")
+    public ApiResponse<Student> updateStudent(
+        @PathVariable Long studentId,
+        @RequestBody StudentUpdateRequest request
+    ) {
+        Student updatedStudent = studentService.updateStudent(studentId, request);
+        return new ApiResponse<>(
+            HttpStatus.OK.value(),
+            "Student data updated successfully",
+            updatedStudent
         );
     }
 }
